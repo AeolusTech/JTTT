@@ -28,27 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.urlAddress = new System.Windows.Forms.TextBox();
+            this.tagToSearch = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.przycisk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // urlAddress
             // 
-            this.textBox1.Location = new System.Drawing.Point(96, 65);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(531, 20);
-            this.textBox1.TabIndex = 0;
+            this.urlAddress.Location = new System.Drawing.Point(96, 65);
+            this.urlAddress.Name = "urlAddress";
+            this.urlAddress.Size = new System.Drawing.Size(531, 20);
+            this.urlAddress.TabIndex = 0;
+            this.urlAddress.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // textBox2
+            // tagToSearch
             // 
-            this.textBox2.Location = new System.Drawing.Point(96, 158);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(531, 20);
-            this.textBox2.TabIndex = 1;
+            this.tagToSearch.Location = new System.Drawing.Point(96, 158);
+            this.tagToSearch.Name = "tagToSearch";
+            this.tagToSearch.Size = new System.Drawing.Size(531, 20);
+            this.tagToSearch.TabIndex = 1;
             // 
             // textBox3
             // 
@@ -87,17 +89,28 @@
             this.label3.Text = "Adres email";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // przycisk
+            // 
+            this.przycisk.Location = new System.Drawing.Point(293, 485);
+            this.przycisk.Name = "przycisk";
+            this.przycisk.Size = new System.Drawing.Size(128, 23);
+            this.przycisk.TabIndex = 6;
+            this.przycisk.Text = "Ustaw";
+            this.przycisk.UseVisualStyleBackColor = true;
+            this.przycisk.Click += new System.EventHandler(this.przycisk_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 536);
+            this.Controls.Add(this.przycisk);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tagToSearch);
+            this.Controls.Add(this.urlAddress);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -108,12 +121,13 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox urlAddress;
+        private System.Windows.Forms.TextBox tagToSearch;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button przycisk;
     }
 }
 
