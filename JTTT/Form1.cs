@@ -18,20 +18,35 @@ namespace JTTT
             try
             {
                 var document = new HtmlWeb().Load(urlAddress.Text);
-                HtmlNode[] nodes = document.DocumentNode.SelectNodes("//div[@class='content-info']//a")
-                    //.Where(x=>x.InnerHtml.Contains("jpg"))
-                    .Where(y => y.InnerHtml.Contains(tagToSearch.Text))
-                    .ToArray();
+                //HtmlNode[] nodes = document.DocumentNode.SelectNodes("//div[@class='content-info']//a")
+                //    //.Where(x=>x.InnerHtml.Contains("jpg"))
+                //    .Where(y => y.InnerHtml.Contains(tagToSearch.Text))
+                //    .ToArray();
 
-                var urls = nodes.Where(x => x.InnerText.Contains(tagToSearch.Text));
+                var items = document.DocumentNode.SelectNodes("//div[@class='content-info']");
+                var excludeItems = document.DocumentNode.SelectNodes("//div[@class='vjs-control-text']"); // exclude videos
 
-                int temp = 0;
-                foreach (var url in urls)
+                String imgURL = "";
+
+                bool found = false;
+                // problem jezeli pojawi sie wideo
+                foreach (var item in items)
                 {
-                    Console.WriteLine(url.InnerHtml);
-                    temp++;
+                    //var link = item.Descendants("a").ToList()[0].GetAttributeValue("href", null);
+                    var words = item.Descendants("a").ToList();//.InnerText.Contains(tagToSearch.Text);
+                    foreach(var word in words )
+                    {
+                        if (word.InnerText.Contains(tagToSearch.Text))
+                        {
+                            Console.WriteLine(word.InnerText);
+                            imgURL = item.Descendants("img").ToList()[0].GetAttributeValue("src", null);
+                            found = true;
+                        }
+                    }
+                    if (found)
+                        break;
                 }
-                Console.WriteLine(temp);
+                Console.WriteLine("Hej! Znalazlem: " + imgURL);
             }
             catch(Exception e)
             {
