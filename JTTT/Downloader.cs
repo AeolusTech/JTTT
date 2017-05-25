@@ -38,7 +38,7 @@ namespace JTTT
                 var items = document.DocumentNode.SelectNodes("//div[@class='content-info']");
                 var excludeItems = document.DocumentNode.SelectNodes("//div[@class='vjs-control-text']"); // exclude videos
 
-                String imgURL = "";
+                string imgURL = "";
 
                 bool found = false;
                 // problem jezeli pojawi sie wideo
@@ -57,9 +57,18 @@ namespace JTTT
                     if (found)
                         break;
                 }
-                Console.WriteLine("Hej! Znalazlem: " + imgURL);
-                return imgURL;
-
+                if (imgURL.Length == 0)
+                {
+                    imgURL = "https://www.friendlyshade.com/img/404-not-found.jpg"; // bo to takie smieszne
+                    Console.WriteLine("Hej! Nie znalazlem, wysyłam 404 XD ");
+                    return imgURL;
+                }
+                else
+                {
+                    Console.WriteLine("Hej! Znalazlem: " + imgURL);
+                    return imgURL;
+                }
+               
             }
             catch (System.NullReferenceException e)
             {
@@ -69,7 +78,7 @@ namespace JTTT
             {
                 Console.WriteLine("Nieoczekiwany błąd w czytaniu adresu URL lub tagu. Treść:\n" + e.ToString());
             }
-            return "https://www.friendlyshade.com/img/404-not-found.jpg"; // bo to takie smieszne
+            return "https://www.friendlyshade.com/img/404-not-found.jpg"; // uciszamy kompilator
         }
 
         public void SaveImage(string webURL, ImageFormat format)
