@@ -3,11 +3,19 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using System.Net.Mail;
+using System.Net;
+using System.Web;
+//using System.Web.Security;
+
+
+
 
 namespace JTTT
 {
     public partial class Form1 : Form
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -47,12 +55,41 @@ namespace JTTT
                         break;
                 }
                 Console.WriteLine("Hej! Znalazlem: " + imgURL);
+
             }
             catch(Exception e)
             {
                 Console.WriteLine("Blad w czytaniu adresu URL lub tagu. Blad:\n" + e.ToString());
             }
         }
+
+
+
+        public void sendmail()
+        {
+            try
+            {
+                var message = new MailMessage();
+                message.From = new MailAddress("dotnetijava2017@gmail.com", "Platformy Programistyczne");
+                message.To.Add(new MailAddress(AdresEmail.Text));
+                message.Subject = tagToSearch.Text;
+                message.Body = "Znaleziono nowy obraz \"" +tagToSearch.Text +"\"";
+                //message.Attachments.Add(new Attachment(@"sciezkapliku"));
+                var smtp = new SmtpClient("smtp.gmail.com");
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("dotnetijava2017@gmail.com", "poiuytrewq1");
+                smtp.EnableSsl = true;
+                smtp.Port = 587;
+                smtp.Send(message);
+                Console.WriteLine("Udalo sie wyslac wiadomosc!\n");
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Nie udalo sie wyslac wiadomosci. Blad:\n" + e.ToString());
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -82,6 +119,8 @@ namespace JTTT
         private void przycisk_Click(object sender, EventArgs e)
         {
             getImage();
+            sendmail();
+            
         }
     }
 }

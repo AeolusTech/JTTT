@@ -30,7 +30,7 @@
         {
             this.urlAddress = new System.Windows.Forms.TextBox();
             this.tagToSearch = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.AdresEmail = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,12 +52,12 @@
             this.tagToSearch.Size = new System.Drawing.Size(531, 20);
             this.tagToSearch.TabIndex = 1;
             // 
-            // textBox3
+            // AdresEmail
             // 
-            this.textBox3.Location = new System.Drawing.Point(96, 414);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(531, 20);
-            this.textBox3.TabIndex = 2;
+            this.AdresEmail.Location = new System.Drawing.Point(96, 414);
+            this.AdresEmail.Name = "AdresEmail";
+            this.AdresEmail.Size = new System.Drawing.Size(531, 20);
+            this.AdresEmail.TabIndex = 2;
             // 
             // label1
             // 
@@ -108,7 +108,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.AdresEmail);
             this.Controls.Add(this.tagToSearch);
             this.Controls.Add(this.urlAddress);
             this.Name = "Form1";
@@ -123,7 +123,7 @@
 
         private System.Windows.Forms.TextBox urlAddress;
         private System.Windows.Forms.TextBox tagToSearch;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox AdresEmail;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
