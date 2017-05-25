@@ -1,6 +1,8 @@
-﻿namespace JTTT
+﻿using System.Windows.Forms;
+
+namespace JTTT
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -128,6 +130,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button przycisk;
+
+        public TextBox UrlAddress { get => urlAddress; set => urlAddress = value; }
     }
 }
 
