@@ -59,8 +59,7 @@ namespace JTTT
                 }
                 if (imgURL.Length == 0)
                 {
-                    Console.WriteLine("Hej! Nie znalazlem, wysyłam 404 XD ");
-                    return "http://2.bp.blogspot.com/-Boq9ZwPglK0/TlQUl5VZ7tI/AAAAAAAABqw/AaicADRN2hA/s1600/404_Not_Found_nginx.jpg";
+                    return "";
                 }
                 else
                 {

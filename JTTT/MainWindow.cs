@@ -52,8 +52,15 @@ namespace JTTT
                 MailSender m = new MailSender("logowanie.jpg");
 
                 string webURL = d.getImage(urlAddress.Text, tagToSearch.Text);
-                d.SaveImage(webURL, ImageFormat.Jpeg);
-                m.Sendmail(AdresEmail.Text, tagToSearch.Text, d.Filepath);
+                if (webURL.Length != 0)
+                {
+                    d.SaveImage(webURL, ImageFormat.Jpeg);
+                    m.Sendmail(AdresEmail.Text, tagToSearch.Text, d.Filepath);
+                }
+                else
+                {
+                    Console.WriteLine("Nie znaleziono obrazka o podanym tagu: " + tagToSearch.Text +"\nNie wysylam nic");
+                }
             }
             catch (ExternalException exception)
             {
