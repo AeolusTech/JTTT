@@ -39,7 +39,6 @@ namespace JTTT
                 var excludeItems = document.DocumentNode.SelectNodes("//div[@class='vjs-control-text']"); // exclude videos
 
                 string imgURL = "";
-                Uri url404 = new Uri("https://www.friendlyshade.com/img/404-not-found.jpg"); // bo to takie smieszne
 
                 bool found = false;
                 // problem jezeli pojawi sie wideo
@@ -61,7 +60,7 @@ namespace JTTT
                 if (imgURL.Length == 0)
                 {
                     Console.WriteLine("Hej! Nie znalazlem, wysyłam 404 XD ");
-                    return url404.AbsoluteUri;
+                    return "http://2.bp.blogspot.com/-Boq9ZwPglK0/TlQUl5VZ7tI/AAAAAAAABqw/AaicADRN2hA/s1600/404_Not_Found_nginx.jpg";
                 }
                 else
                 {
@@ -78,8 +77,7 @@ namespace JTTT
             {
                 Console.WriteLine("Nieoczekiwany błąd w czytaniu adresu URL lub tagu. Treść:\n" + e.ToString());
             }
-            Uri url404 = new Uri("https://www.friendlyshade.com/img/404-not-found.jpg"); // bo to takie smieszne
-            return url404.AbsoluteUri;
+            return ""; // uciszamy kompilator
         }
 
         public void SaveImage(string webURL, ImageFormat format)
