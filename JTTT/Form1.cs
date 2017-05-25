@@ -6,6 +6,10 @@ using System.Windows.Forms;
 using System.Net.Mail;
 using System.Net;
 using System.Web;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Drawing;
+using System.Runtime.InteropServices;
 //using System.Web.Security;
 
 
@@ -21,16 +25,11 @@ namespace JTTT
             InitializeComponent();
         }
 
-        public void getImage()
+        public string getImage()
         {
             try
             {
                 var document = new HtmlWeb().Load(urlAddress.Text);
-                //HtmlNode[] nodes = document.DocumentNode.SelectNodes("//div[@class='content-info']//a")
-                //    //.Where(x=>x.InnerHtml.Contains("jpg"))
-                //    .Where(y => y.InnerHtml.Contains(tagToSearch.Text))
-                //    .ToArray();
-
                 var items = document.DocumentNode.SelectNodes("//div[@class='content-info']");
                 var excludeItems = document.DocumentNode.SelectNodes("//div[@class='vjs-control-text']"); // exclude videos
 
@@ -40,7 +39,6 @@ namespace JTTT
                 // problem jezeli pojawi sie wideo
                 foreach (var item in items)
                 {
-                    //var link = item.Descendants("a").ToList()[0].GetAttributeValue("href", null);
                     var words = item.Descendants("a").ToList();//.InnerText.Contains(tagToSearch.Text);
                     foreach(var word in words )
                     {
@@ -55,17 +53,38 @@ namespace JTTT
                         break;
                 }
                 Console.WriteLine("Hej! Znalazlem: " + imgURL);
+                return imgURL;
 
+            }
+            catch (System.NullReferenceException e)
+            {
+                Console.WriteLine("Nie znalazłem żądanego obrazka.\n" + e.ToString());
             }
             catch(Exception e)
             {
-                Console.WriteLine("Blad w czytaniu adresu URL lub tagu. Blad:\n" + e.ToString());
+                Console.WriteLine("Nieoczekiwany błąd w czytaniu adresu URL lub tagu. Treść:\n" + e.ToString());
             }
+            return "https://www.friendlyshade.com/img/404-not-found.jpg"; // bo to takie smieszne
+        }
+
+        public void SaveImage(string webURL, string filepath, ImageFormat format)
+        {
+
+            WebClient client = new WebClient();
+            Stream stream = client.OpenRead(webURL);
+            Bitmap bitmap; bitmap = new Bitmap(stream);
+
+            if (bitmap != null)
+                bitmap.Save(filepath, format);
+
+            stream.Flush();
+            stream.Close();
+            client.Dispose();
         }
 
 
 
-        public void sendmail()
+        public void sendmail(string filepath)
         {
             try
             {
@@ -73,8 +92,8 @@ namespace JTTT
                 message.From = new MailAddress("dotnetijava2017@gmail.com", "Platformy Programistyczne");
                 message.To.Add(new MailAddress(AdresEmail.Text));
                 message.Subject = tagToSearch.Text;
-                message.Body = "Znaleziono nowy obraz \"" +tagToSearch.Text +"\"";
-                //message.Attachments.Add(new Attachment(@"sciezkapliku"));
+                message.Body = "Znaleziono nowy obraz z tagiem \"" +tagToSearch.Text +"\"";
+                message.Attachments.Add(new Attachment(filepath));
                 var smtp = new SmtpClient("smtp.gmail.com");
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new NetworkCredential("dotnetijava2017@gmail.com", "poiuytrewq1");
@@ -118,8 +137,21 @@ namespace JTTT
         
         private void przycisk_Click(object sender, EventArgs e)
         {
-            getImage();
-            sendmail();
+            try
+            {
+                string webURL = getImage();
+                string filepath = "jttt_obrazek.png"; // check format here
+                SaveImage(webURL, filepath, ImageFormat.Jpeg);
+                sendmail(filepath);
+            }
+            catch (ExternalException exception)
+            {
+                Console.WriteLine("Blad w formacie obrazka.\n" + exception.ToString());
+            }
+            catch (ArgumentNullException exception)
+            {
+                Console.WriteLine("Problem ze strumieniem\n" + exception.ToString());
+            }
             
         }
     }
